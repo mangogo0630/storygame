@@ -22,8 +22,7 @@
     </div>
 
     <script>
-        let affection = 0; // 初始好感度
-        let path = ""; // 路徑追蹤變數
+        let affection = 0;
 
         function updateAffectionDisplay() {
             document.getElementById('affection').innerText = affection;
@@ -84,7 +83,7 @@
                 showEnding(); // 檢查並進入結局
             } else if (choice === '河邊') {
                 affection += 5;
-                storyText.innerText = "米果在河邊遇到了一位神秘的老狐狸，並與之交談。\n老狐狸告訴米果:「前方過於危險，回頭是岸。」";
+                storyText.innerText = "米果在河邊遇到了一位神秘的老狐狸，並與之交談。老狐狸告訴米果，前方過於危險，回頭是岸。";
                 img.src = "https://tse2.mm.bing.net/th?id=OIG4._eZNQzaeP0c28YkuRf9r&pid=ImgGn";
                 choices.innerHTML = `
                     <button onclick="choosePath('接受老狐狸建議')">接受老狐狸建議</button>
@@ -113,7 +112,7 @@
             } else if (choice === '忽略石頭') {
                 affection -= 10;
                 storyText.innerText = "米果忽略了石頭，走進了濃霧。";
-                img.src = "https://tse2.mm.bing.net/th?id=OIG4.nLFVNsiLZZ1X89VJDQjk&pid=ImgGn";
+                img.src = "https://tse3.mm.bing.net/th?id=OIG2.LhSngEzgQxTeJIq9Pf7q&pid=ImgGn";
                 showEnding(); // 檢查並進入結局
             } else if (choice === '右邊山路') {
                 affection += 5;
@@ -139,7 +138,7 @@
             } else if (choice === '繼續前進') {
                 path = "更廣闊的世界"; // 更新路徑變數
                 storyText.innerText = "米果決定不拿寶石，繼續前進，發現了更廣闊的世界。";
-                img.src = "https://tse3.mm.bing.net/th?id=OIG2.LhSngEzgQxTeJIq9Pf7q&pid=ImgGn";
+                img.src = "https://tse1.mm.bing.net/th?id=OIG2.hd7srMnsAMvwYKa.Id2b&pid=ImgGn進";
                 showEnding(); // 檢查並進入結局
             } else if (choice === '繞過小河') {
                 affection += 5;
@@ -154,43 +153,45 @@
                 storyText.innerText = "米果和小動物們度過了愉快的時光，並獲得了真誠的友誼。";
                 img.src = "https://tse3.mm.bing.net/th?id=OIG4.wdt109SfK9bH0Upc1VLf&pid=ImgGn";
                 showEnding(); // 檢查並進入結局
-            }else if (choice === '繼續冒險') {
+            } else if (choice === '繼續冒險') {
                 affection += 5;
-                storyText.innerText = "米果告別了小動物們，決定繼續冒險，並發現了一片未探索的領域。\n他來到一座橋旁邊，隱約見到前方有一座神廟。";
+                storyText.innerText = "米果告別了小動物們，決定繼續冒險，並發現了一片未探索的領域。";
                 img.src = "https://tse2.mm.bing.net/th?id=OIG2.wX98MikqzbrLito.l3e2&pid=ImgGn";
-                choices.innerHTML = `
-                    <button onclick="choosePath('過橋')">走到橋的另一端</button>
-    `;
-}
+                showEnding(); // 檢查並進入結局
+            }
         }
 
         function showEnding() {
-    const storyText = document.getElementById("storyText");
-    const choices = document.getElementById("choices");
-    let ending;
-
-    if (path === "神廟") {
-        ending = "結局一\n米果進入神廟後，得到了神秘力量的庇護，並獲得了無盡的智慧。";
-    } else if (path === "探索") {
-        ending = "結局二\n米果在桃花源找到了內心的寧靜，並決定在此終老。";
-    } else if (path === "回家") {
-        ending = "結局三\n米果回到了家，雖然沒有找到傳說中的寶物，但他發現家才是最好的歸宿。";
-    } else if (path === "更廣闊的世界") {
-        ending = "結局四\n米果來到一個洞口，發現裡面有更多魔法寶石。\n他成為了魔法寶石王。";
-    } else if (affection >= 30) {
-        ending = "結局五\n米果在一個危險的陷阱前，使用魔法石成功脫險，並找到了魔法果實。";
-    } else if (affection < 10) {
-        ending = "結局六\n米果在濃霧中迷路了，最終決定放棄冒險，返回家中。";
-    } else if (affection >= 20) {
-        ending = "結局七\n米果似乎找到了真正的快樂，他想一直和小動物們玩耍，並決定不再追求魔法果實。\n似乎...再也沒有人看見米果...? \n\n達成隱藏結局「毛茸茸德的溫柔鄉」"  ;
-    } else {
-        ending = "結局八\n米果獲得了寶石，但願望讓他回到了起點，一切仿佛未曾發生。";
-    }
-
-    storyText.innerText = ending;
-    choices.innerHTML = `<button onclick="restartGame()">重新開始</button>`;
+            const storyText = document.getElementById("storyText");
+            const choices = document.getElementById("choices");
+            let ending;
+        
+            if (path === "神廟") {
+                // 結局與進入神廟的選擇相關
+                ending = "結局一：米果進入神廟後，得到了神秘力量的庇護，並獲得了無盡的智慧。";
+            } else if (path === "探索") {
+                // 結局與繼續探索的選擇相關
+                ending = "結局二：米果在桃花源找到了內心的寧靜，並決定在此終老。";
+            }if (path === "回家") {
+                // 結局與進入回家的選擇相關
+                ending = "結局三：米果回到了家，雖然沒有找到傳說中的寶物，但他發現家才是最好的歸宿。";
+            }if (path === " 更廣闊的世界") {
+                // 結局與進入更廣闊的世界的選擇相關
+                ending = "結局四：米果發現魔法寶石不是自己真正想要的，看來，他獲得了真正的快樂。";
+            } 
+            else if (affection >= 30) {
+                ending = "結局五：米果在一個危險的陷阱前，使用魔法石成功脫險，並找到了魔法果實。";
+            } else if (affection < 10) {
+                ending = "結局六：米果在濃霧中遇到了一隻神秘的老狐狸，老狐狸告訴它，只有願意放棄冒險的人，才能找到真正的幸福。";
+            } else if (affection >= 20) {
+                ending = "結局八：米果在這裡找到了真正的快樂，並決定不再追求魔法果實。";
+            } else {
+                ending = "結局七：米果獲得了寶石，但願望卻讓它回到原點，仿佛一切都沒有發生過。";
+            }
+            
+            storyText.innerText = ending;
+            choices.innerHTML = `<button onclick="restartGame()">重新開始</button>`;
 }
-
 
         function restartGame() {
             location.reload(); // 重新加載頁面，回到起始頁
