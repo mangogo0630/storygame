@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>米果的冒險</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="affectionDisplay">
+        <h3>米果的好感度</h3>
+        <p>好感度: <span id="affection">0</span></p>
+    </div>
+
+    <div id="storyContainer" class="container">
+        <h1>米果的冒險</h1>
+        <img src="https://tse3.mm.bing.net/th?id=OIG1.hK2w8ETEOmx4IznMptuM&pid=ImgGn" alt="故事圖片">
+        <div id="storyText">請選擇您的冒險開始：</div>
+        <div id="choices">
+            <button onclick="choosePath('開始')">開始冒險</button>
+        </div>
+    </div>
+
+    <script>
+        let affection = 0;
+
+        function updateAffectionDisplay() {
+            document.getElementById('affection').innerText = affection;
+        }
+
+        function choosePath(choice) {
+            const storyText = document.getElementById("storyText");
+            const choices = document.getElementById("choices");
+            const img = document.querySelector("img");
+
+            if (choice === '開始') {
+                storyText.innerText = "米果決定走左邊的小路或右邊的山路。";
+                img.src = "https://tse1.mm.bing.net/th?id=OIG2.GfkLgIDBd2ia.2FntRBA&pid=ImgGn";
+                choices.innerHTML = `
+                    <button onclick="choosePath('左邊小路')">左邊的小路</button>
+                    <button onclick="choosePath('右邊山路')">右邊的山路</button>
+                `;
+            } else if (choice === '左邊小路') {
+                affection += 5;
+                storyText.innerText = "米果走進了鋪滿花朵的小路，心情大好。";
+                img.src = "https://tse1.mm.bing.net/th?id=OIG1.QmKqe.MOpPvL26giQbEc&pid=ImgGn";
+                choices.innerHTML = `
+                    <button onclick="choosePath('空地')">走進空地</button>
+                `;
+            } else if (choice === '空地') {
+                affection += 10;
+                storyText.innerText = "米果在空地發現了一顆閃光的石頭。";
+                img.src = "https://tse3.mm.bing.net/th?id=OIG2.Pa9emHMosXKlQZ2detXo&pid=ImgGn";
+                choices.innerHTML = `
+                    <button onclick="choosePath('收下石頭')">收下石頭</button>
+                    <button onclick="choosePath('忽略石頭')">忽略石頭</button>
+                `;
+            } else if (choice === '收下石頭') {
+                affection += 15;
+                storyText.innerText = "米果將石頭收進包裡，繼續前進。";
+                img.src = "https://tse3.mm.bing.net/th?id=OIG3.oGiy7gS03kHq.01l4rn9&pid=ImgGn";
+                choices.innerHTML = `
+                    <button onclick="choosePath('遇到岔路')">遇到岔路</button>
+                `;
+            } else if (choice === '遇到岔路') {
+                storyText.innerText = "米果在前方遇到了一條岔路，一條通向森林，另一條通向河邊。";
+                img.src = "https://tse4.mm.bing.net/th?id=OIG3.DHEuW4Y41in0AtxYo0DD&pid=ImgGn";
+                choices.innerHTML = `
+                    <button onclick="choosePath('森林')">走向森林</button>
+                    <button onclick="choosePath('河邊')">走向河邊</button>
+                `;
+            } else if (choice === '森林') {
+                affection += 10;
+                storyText.innerText = "米果在森林中發現了一個古老的神廟。";
+                img.src = "https://tse2.mm.bing.net/th?id=OIG2.Xb5kWkDiwVcR_ypX5z7Q&pid=ImgGn";
+                choices.innerHTML = `
+                    <button onclick="choosePath('進入神廟')">進入神廟</button>
+                `;
+            } else if (choice === '進入神廟') {
+                storyText.innerText = "米果進入了神廟，感受到了一股神秘的力量。";
+                img.src = "https://tse1.mm.bing.net/th?id=OIG3.d1J0z9bKGUrqOxz.B74t&pid=ImgGn";
+                showEnding(); // 檢查並進入結局
+            } else if (choice === '河邊') {
+                affection += 5;
+                storyText.innerText = "米果在河邊遇到了一位神秘的老狐狸，並與之交談。";
+                img.src = "https://tse2.mm.bing.net/th?id=OIG4._eZNQzaeP0c28YkuRf9r&pid=ImgGn";
+                choices.innerHTML = `
+                    <button onclick="choosePath('接受老狐狸建議')">接受老狐狸建議</button>
+                    <button onclick="choosePath('拒絕老狐狸建議')">拒絕老狐狸建議</button>
+                `;
+            } else if (choice === '接受老狐狸建議') {
+                affection -= 10;
+                storyText.innerText = "米果接受了老狐狸的建議，決定不再冒險，回家了。";
+                img.src = "https://tse3.mm.bing.net/th?id=OIG3.7O2Cydq.e.W4S_R1dKHK&pid=ImgGn";
+                showEnding(); // 檢查並進入結局
+            } else if (choice === '拒絕老狐狸建議') {
+                affection += 10;
+                storyText.innerText = "米果拒絕了老狐狸的建議，決心繼續尋找冒險。";
+                img.src = "https://tse2.mm.bing.net/th?id=OIG3.d62H0KU7pfjAXdDddeZF&pid=ImgGn";
+                choices.innerHTML = `
+                    <button onclick="choosePath('繼續探索')">繼續探索</button>
+                `;
+            } else if (choice === '繼續探索') {
+                storyText.innerText = "米果在繼續探索的過程中，發現了一片美麗的桃花源。";
+                img.src = "https://tse1.mm.bing.net/th?id=OIG1.r3JRpV.6hlxbTPCitRCr&pid=ImgGn";
+                showEnding(); // 檢查並進入結局
+            } else if (choice === '忽略石頭') {
+                affection -= 10;
+                storyText.innerText = "米果忽略了石頭，走進了濃霧。";
+                img.src = "https://tse3.mm.bing.net/th?id=OIG2.LhSngEzgQxTeJIq9Pf7q&pid=ImgGn";
+                showEnding(); // 檢查並進入結局
+            } else if (choice === '右邊山路') {
+                affection += 5;
+                storyText.innerText = "米果走上了崎嶇的山路，風景壯麗。";
+                img.src = "https://tse1.mm.bing.net/th?id=OIG3.8UjPo8RKN7mkzvW_NNcC&pid=ImgGn";
+                choices.innerHTML = `
+                    <button onclick="choosePath('過橋')">過橋</button>
+                    <button onclick="choosePath('繞過小河')">繞過小河</button>
+                `;
+            } else if (choice === '過橋') {
+                affection += 10;
+                storyText.innerText = "米果安全過了橋，發現了一座神廟。";
+                img.src = "https://tse4.mm.bing.net/th?id=OIG3.F6l.RL4VrpcGbhzaurDa&pid=ImgGn";
+                choices.innerHTML = `
+                    <button onclick="choosePath('拿取寶石')">拿取寶石</button>
+                    <button onclick="choosePath('繼續前進')">繼續前進</button>
+                `;
+            } else if (choice === '拿取寶石') {
+                affection += 15;
+                storyText.innerText = "米果拿取了寶石，但隨即感受到了一種奇異的力量。";
+                img.src = "https://tse3.mm.bing.net/th?id=OIG2.Dx6XHouHLYNr_lXjKGEb&pid=ImgGn";
+                showEnding(); // 檢查並進入結局
+            } else if (choice === '繼續前進') {
+                storyText.innerText = "米果決定不拿寶石，繼續前進，發現了更廣闊的世界。";
+                img.src = "https://tse1.mm.bing.net/th?id=OIG2.hd7srMnsAMvwYKa.Id2b&pid=ImgGn進";
+                showEnding(); // 檢查並進入結局
+            } else if (choice === '繞過小河') {
+                affection += 5;
+                storyText.innerText = "米果決定繞過小河，遇到了歡樂的小動物們。";
+                img.src = "https://tse4.mm.bing.net/th?id=OIG2.pocIgj2yPGK.VS8SWaxe&pid=ImgGn";
+                choices.innerHTML = `
+                    <button onclick="choosePath('與小動物玩耍')">與小動物玩耍</button>
+                    <button onclick="choosePath('繼續冒險')">繼續冒險</button>
+                `;
+            } else if (choice === '與小動物玩耍') {
+                affection += 10;
+                storyText.innerText = "米果和小動物們度過了愉快的時光，並獲得了真誠的友誼。";
+                img.src = "https://tse3.mm.bing.net/th?id=OIG4.wdt109SfK9bH0Upc1VLf&pid=ImgGn";
+                showEnding(); // 檢查並進入結局
+            } else if (choice === '繼續冒險') {
+                affection += 5;
+                storyText.innerText = "米果告別了小動物們，決定繼續冒險，並發現了一片未探索的領域。";
+                img.src = "https://tse2.mm.bing.net/th?id=OIG2.wX98MikqzbrLito.l3e2&pid=ImgGn";
+                showEnding(); // 檢查並進入結局
+            }
+        }
+
+        function showEnding() {
+            const storyText = document.getElementById("storyText");
+            const choices = document.getElementById("choices");
+            let ending;
+
+            if (affection >= 30) {
+                ending = "結局五：米果在一個危險的陷阱前，使用魔法石成功脫險，並找到了魔法果實。";
+            } else if (affection < 10) {
+                ending = "結局六：米果在濃霧中遇到了一隻神秘的老狐狸，老狐狸告訴它，只有願意放棄冒險的人，才能找到真正的幸福。";
+            } else if (affection >= 20) {
+                ending = "結局八：米果在這裡找到了真正的快樂，並決定不再追求魔法果實。";
+            } else {
+                ending = "結局七：米果獲得了寶石，但願望卻讓它回到原點，仿佛一切都沒有發生過。";
+            }
+
+            storyText.innerText = ending;
+            choices.innerHTML = `<button onclick="restartGame()">重新開始</button>`;
+        }
+
+        function restartGame() {
+            location.reload(); // 重新加載頁面，回到起始頁
+        }
+
+    </script>
+</body>
+</html>
